@@ -1,0 +1,29 @@
+{
+  "name": "advent-of-code-2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "readFile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dianatofan/advent-of-code-2020.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dianatofan/advent-of-code-2020/issues"
+  },
+  "homepage": "https://github.com/dianatofan/advent-of-code-2020#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "requirejs": "^2.3.6"
+  }
+}
