@@ -1,3 +1,4 @@
+// --- Day 1: Report Repair ---
 // Full description: https://adventofcode.com/2020/day/1
 
 import { getInput } from "./getInput.js";

@@ -1,3 +1,4 @@
+// --- Day 2: Password Philosophy ---
 // Full description: https://adventofcode.com/2020/day/2
 
 import { getInput } from "./getInput.js";
