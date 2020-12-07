@@ -25,25 +25,19 @@ const removeDuplicateCharacters = string =>
   console.log(groupsQuestionsAnswered);
 })();
 
-const findCommonElements = listOfArrays =>
-  listOfArrays
-    .slice(1)
-    .reduce(
-      (result, currentArray) =>
-        currentArray.filter(currentItem => result.indexOf(currentItem) !== -1),
-      listOfArrays[0]
-    );
-
 // Part 2: find sum of the counts to which everyone answered yes
 (async () => {
   let answers = await getInput(6, true);
-  answers = answers.map(ans => ans.replace(/\n/g, " "));
-  let groupsQuestionsAnswered = 0;
+  answers = answers.map(ans => ans.replace(/\n/g, " ")).filter(x => x);
+  let count = 0;
   answers.forEach(groupAnswer => {
-    const commonLetters = findCommonElements(
-      groupAnswer.split(" ").map(ans => ans.split(""))
-    );
-    groupsQuestionsAnswered += commonLetters.length;
+    const firstPersonAnswer = groupAnswer.split(" ")[0];
+    count += [...firstPersonAnswer].filter(char =>
+      groupAnswer
+        .split(" ")
+        .filter(x => x)
+        .every(ans => ans.includes(char))
+    ).length;
   });
-  console.log("Count: ", groupsQuestionsAnswered);
+  console.log("Count: ", count);
 })();
