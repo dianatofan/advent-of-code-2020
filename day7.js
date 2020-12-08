@@ -3,7 +3,7 @@
 
 import { getInput } from "./getInput.js";
 
-// Part 1: how many bag colors can eventually contain at least one shiny gold bag>
+// Part 1: how many bag colors can eventually contain at least one shiny gold bag?
 (async () => {
   const rules = await getInput(7);
   const map = new Map();
