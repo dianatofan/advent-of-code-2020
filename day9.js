@@ -35,7 +35,9 @@ import { getInput } from "./getInput.js";
   const isSumOfPrevElem = (n, preamble) =>
     preamble.some(item => preamble.includes(n - item));
 
-  let foundFirstInvalidNumber = false;
+  let foundFirstInvalidNumber = false,
+    invalidNumber;
+
   data.forEach((number, i) => {
     if (i >= preambleLength && !foundFirstInvalidNumber) {
       // check if number is the sum of 2 prev elements
@@ -44,8 +46,27 @@ import { getInput } from "./getInput.js";
         preamble.shift();
       } else {
         console.log("Invalid: ", number);
+        invalidNumber = number;
         foundFirstInvalidNumber = true;
       }
     }
   });
+
+  // Part 2: find encryption weakness as sum of smallest and largest numbers in contiguous set
+  const findWeakness = invalidNumber => {
+    let start = 0,
+      end = 0,
+      sum = 0,
+      slice = [];
+
+    while (sum !== invalidNumber) {
+      slice = data.slice(start, end);
+      sum = slice.reduce((acc, val) => acc + val, 0);
+      if (sum < invalidNumber) end++;
+      if (sum > invalidNumber) start++;
+    }
+    return Math.min(...slice) + Math.max(...slice);
+  };
+
+  console.log(findWeakness(invalidNumber));
 })();
