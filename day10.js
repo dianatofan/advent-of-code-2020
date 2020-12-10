@@ -2,7 +2,6 @@
 // Full description: https://adventofcode.com/2020/day/10
 
 import { getInput } from "./getInput.js";
-import { isPrimitive } from "util";
 
 (async () => {
   let joltageRatings = await getInput(10);
@@ -42,4 +41,27 @@ import { isPrimitive } from "util";
   console.log(
     joltDifferences.get("diffOfOne") * joltDifferences.get("diffOfThree")
   );
+
+  // Part 2: find all possible arrangements of adapters to connect the charging outlet to your device
+  const findArrangements = joltageRatings => {
+    const arrangements = {};
+    const rating = joltageRatings.join`,`;
+    if (rating in arrangements) {
+      return arrangements[key];
+    }
+
+    let result = 1;
+    for (let i = 1; i < joltageRatings.length - 1; i++) {
+      if (joltageRatings[i + 1] - joltageRatings[i - 1] <= 3) {
+        const joltageRatingsCombination = [joltageRatings[i - 1]].concat(
+          joltageRatings.slice(i + 1)
+        );
+        result += findArrangements(joltageRatingsCombination, arrangements);
+      }
+    }
+    arrangements[arrangements] = result;
+    return result;
+  };
+
+  console.log(findArrangements(joltageRatings));
 })();
