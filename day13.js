@@ -27,5 +27,28 @@ import { getInput } from "./getInput.js";
     "Part 1: ",
     (earliestBus.earliest - earliestTimestamp) * earliestBus.id
   );
-  //   console.log(test, earliestTimestamp, busIDs);
+
+  // Part 2: What is the earliest timestamp such that all of the listed bus IDs depart at offsets matching their positions in the list?
+  const busIDsWithX = schedules[1].split(",").map(item => parseInt(item));
+  let timestamp = 0,
+    waitingMinutes = 1;
+
+  const busGroups = busIDs.map(bus => {
+    return [bus, busIDsWithX.indexOf(bus)];
+  });
+  busGroups.forEach((bus, i) => {
+    let isEarliestTimestampFound = false;
+    do {
+      if (
+        (timestamp + parseInt(busGroups[i][1])) % parseInt(busGroups[i][0]) ===
+        0
+      ) {
+        isEarliestTimestampFound = true;
+        waitingMinutes *= parseInt(busGroups[i][0]);
+      } else {
+        timestamp += waitingMinutes;
+      }
+    } while (!isEarliestTimestampFound);
+  });
+  console.log("Part 2: ", timestamp);
 })();
