@@ -4,19 +4,8 @@
 import { getInput } from "./getInput.js";
 
 (async () => {
-  // let [rules, myTicket, nearbyTickets] = await getInput(16, true);
+  let [rules, myTicket, nearbyTickets] = await getInput(16, true);
 
-  let [rules, myTicket, nearbyTickets] = `class: 0-1 or 4-19
-row: 0-5 or 8-19
-seat: 0-13 or 16-19
-
-your ticket:
-11,12,13
-
-nearby tickets:
-3,9,18
-15,1,5
-5,14,9`.split("\n\n");
   // Part 1: get nearby tickets scanning error rate
   const acceptedValues = new Set();
 
@@ -61,9 +50,6 @@ nearby tickets:
     tickets => !invalidTickets.includes(tickets) // discard invalid tickets
   );
 
-  let foundOrder = false,
-    i = 0;
-
   let positions = new Map();
 
   for (let i = 0; i < nearbyTickets.length; i++) {
@@ -82,12 +68,27 @@ nearby tickets:
     for (let [key2, value2] of positions) {
       if (
         value2.every(elem => value1.includes(elem)) &&
-        !fieldsOrder.has(key1)
+        !fieldsOrder.has(key2)
       ) {
-        fieldsOrder.set(key1, key2);
+        fieldsOrder.set(key2, key1);
       }
     }
   }
 
-  console.log(fieldsAndValues);
+  myTicket = myTicket
+    .split("\n")[1]
+    .split(",")
+    .map((item, i) => ({
+      [fieldsOrder.get(i + 1)]: parseInt(item)
+    }));
+
+  let product = 1;
+
+  myTicket.forEach(field => {
+    if (Object.keys(field)[0].startsWith("departure")) {
+      product *= Object.values(field)[0];
+    }
+  });
+
+  console.log("Part 2: ", product);
 })();
